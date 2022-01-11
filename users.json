@@ -1,0 +1,7 @@
+[{"id":"1","name":"arshia hemat","dateOfBirth":"1380/5/2","universityLocation":"UI","field":"CE","workplace":"morcot","specialties":["Machine learning","Reinforcement learning","Blockchain programming"],"connectionId":["2","3","4"]}
+,{"id":"2","name":"amirali goli","dateOfBirth":"1379/5/2","universityLocation":"UI","field":"CE","workplace":"mohaymen","specialties":["Java programming","Django","Back-End"],"connectionId":["1","4","5","6"]}
+,{"id":"3","name":"danial tavakoli","dateOfBirth":"1381/5/2","universityLocation":"UI","field":"CE","workplace":"-","specialties":["Java programming","AI"],"connectionId":["1","4","6"]}
+,{"id":"4","name":"mohamad eshagh","dateOfBirth":"1381/5/3","universityLocation":"UI","field":"CE","workplace":"msi","specialties":["Kotlin programming","Android"],"connectionId":["1","2","3"]}
+,{"id":"5","name":"ali ebrahimi","dateOfBirth":"1381/8/3","universityLocation":"UI","field":"CE","workplace":"-","specialties":["Java programming","AI","Java FX"],"connectionId":["2","6"]}
+,{"id":"6","name":"mehrshad farahani","dateOfBirth":"1381/8/13","universityLocation":"UI","field":"CE","workplace":"-","specialties":["QT","C++ programming"],"connectionId":["2","3","5","7"]}
+,{"id":"7","name":"naghi mamoli","dateOfBirth":"1340/8/3","universityLocation":"UB","field":"Ar","workplace":"Paytakht","specialties":["Building","Welding","Plastering"],"connectionId":["6"]}]
