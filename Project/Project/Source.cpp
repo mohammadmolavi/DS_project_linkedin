@@ -64,6 +64,7 @@ map <string, vector<int>> specialtiesToId;
 map <int, string> idToUniversity;
 map <int, string> idToField;
 map <int, string> idToWorkplace;
+graph connected;
 
 void saveInfo()
 {
@@ -140,8 +141,24 @@ void saveToMap()
 	}
 }
 
+void saveToGraph()
+{
+	for (int i = 0; i < list1.size(); i++)
+	{
+		connected.insertV(list1[i].id);
+	}
+	for (int i = 0; i < list1.size(); i++)
+	{
+		for (int j = 0; j < list1[i].connectioId.size(); j++)
+		{
+			connected.connect(list1[i].id, list1[i].connectioId[j]);
+		}
+	}
+}
+
 int main()
 {
 	saveInfo();
 	saveToMap();
+	saveToGraph();
 }
