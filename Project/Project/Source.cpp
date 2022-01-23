@@ -56,7 +56,69 @@ public:
 	vector<int> getConnectedV(int V) { return edges[V]; }
 };
 
+vector <UsersInfo> list1;
+
+void saveInfo()
+{
+	ifstream users("users.json");
+	Json::Value v;
+	Json::Reader r;
+	r.parse(users, v);
+	for (int i = 0; !v[i].isNull(); i++)
+	{
+		UsersInfo newUser;
+		Json::FastWriter fastWriter;
+		string s = fastWriter.write(v[i]["name"]);
+		s.erase(s.begin());
+		s.erase(s.end() - 1);
+		s.erase(s.end() - 1);
+		newUser.name = s;
+		s = fastWriter.write(v[i]["id"]);
+		s.erase(s.begin());
+		s.erase(s.end() - 1);
+		s.erase(s.end() - 1);
+		newUser.id = stoi(s);
+		s = fastWriter.write(v[i]["dateOfBirth"]);
+		s.erase(s.begin());
+		s.erase(s.end() - 1);
+		s.erase(s.end() - 1);
+		newUser.dateOfBirth = s;
+		s = fastWriter.write(v[i]["universityLocation"]);
+		s.erase(s.begin());
+		s.erase(s.end() - 1);
+		s.erase(s.end() - 1);
+		newUser.universityLocation = s;
+		s = fastWriter.write(v[i]["field"]);
+		s.erase(s.begin());
+		s.erase(s.end() - 1);
+		s.erase(s.end() - 1);
+		newUser.field = s;
+		s = fastWriter.write(v[i]["workplace"]);
+		s.erase(s.begin());
+		s.erase(s.end() - 1);
+		s.erase(s.end() - 1);
+		newUser.workplace = s;
+		for (int j = 0; !v[i]["specialties"][j].isNull(); j++)
+		{
+			s = fastWriter.write(v[i]["specialties"][j]);
+			s.erase(s.begin());
+			s.erase(s.end() - 1);
+			s.erase(s.end() - 1);
+			newUser.specialties.push_back(s);
+		}
+		for (int j = 0; !v[i]["connectionId"][j].isNull(); j++)
+		{
+			s = fastWriter.write(v[i]["connectionId"][j]);
+			s.erase(s.begin());
+			s.erase(s.end() - 1);
+			s.erase(s.end() - 1);
+			newUser.connectioId.push_back(stoi(s));
+		}
+		list1.push_back(newUser);
+	}
+}
+
 int main()
 {
-
+	saveInfo();
 }
