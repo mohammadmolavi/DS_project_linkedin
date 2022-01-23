@@ -65,6 +65,8 @@ map <int, string> idToUniversity;
 map <int, string> idToField;
 map <int, string> idToWorkplace;
 graph connected;
+vector <int> fiveDegree;
+int iddd;
 
 void saveInfo()
 {
@@ -156,9 +158,91 @@ void saveToGraph()
 	}
 }
 
+
+void save5Degree(int id, int count)
+{
+	vector <int> connectedUsers = connected.getConnectedV(id);
+	for (int i = 0; i < connectedUsers.size(); i++)
+	{
+		bool flag = false;
+		if (connected.isConnect(connectedUsers[i], iddd) || connectedUsers[i] == iddd)
+			flag = true;
+		for (int j = 0; j < fiveDegree.size() && !flag; j++)
+			if (fiveDegree[j] == connectedUsers[i])
+				flag = true;
+		if (!flag)
+			fiveDegree.push_back(connectedUsers[i]);
+		if (!flag && count < 5)
+			save5Degree(connectedUsers[i], count + 1);
+	}
+}
+
+bool cmp(pair<int, int>& a,
+	pair<int, int>& b)
+{
+	return a.second > b.second;
+}
+
+void printSortMap(map<int, int>& M)
+{
+
+	vector<pair<int, int> > A;
+	for (auto& it : M) {
+		A.push_back(it);
+	}
+	sort(A.begin(), A.end(), cmp);
+	int count = 0;
+	for (auto& it : A)
+	{
+		if (count == 20)
+			break;
+		cout << "id: " << it.first
+			<< "\tname: " << idToName[it.first]
+			<< "\tpoint: " << it.second << endl;
+		count++;
+	}
+}
+
+void printRecommended(int id)
+{
+	int index = id;
+	for (int i = 0; i < list1.size(); i++)
+		if (list1[i].id == id)
+			index = i;
+	vector <int> connectedUsers = connected.getConnectedV(id);
+	for (int i = 0; i < connectedUsers.size(); i++)
+	{
+		save5Degree(connectedUsers[i], 1);
+	}
+	vector <string> specilties = list1[index].specialties;
+	string workplace = list1[index].workplace;
+	string field = list1[index].field;
+	string university = list1[index].universityLocation;
+	map <int, int> priority;
+	for (int i = 0; i < fiveDegree.size(); i++)
+	{
+		for (int j = 0; j < specilties.size(); j++)
+			for (int k = 0; k < idToSpecialties[fiveDegree[i]].size(); k++)
+				if (specilties[j].compare(idToSpecialties[fiveDegree[i]][k]) == 0)
+					priority[fiveDegree[i]] += 8;
+		if (idToField[fiveDegree[i]].compare(field) == 0)
+			priority[fiveDegree[i]] += 10;
+		if (idToWorkplace[fiveDegree[i]].compare(workplace) == 0)
+			priority[fiveDegree[i]] += 10;
+		if (idToUniversity[fiveDegree[i]].compare(university) == 0)
+			priority[fiveDegree[i]] += 5;
+	}
+	printSortMap(priority);
+}
+
 int main()
 {
 	saveInfo();
 	saveToMap();
 	saveToGraph();
+	int id;
+	cout << "Enter id : ";
+	cin >> id;
+	iddd = id;
+	printRecommended(id);
 }
