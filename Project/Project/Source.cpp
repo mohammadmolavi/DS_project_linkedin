@@ -57,6 +57,13 @@ public:
 };
 
 vector <UsersInfo> list1;
+map <int, string > idToName;
+map <string, int> nameToId;
+map <int, vector<string>> idToSpecialties;
+map <string, vector<int>> specialtiesToId;
+map <int, string> idToUniversity;
+map <int, string> idToField;
+map <int, string> idToWorkplace;
 
 void saveInfo()
 {
@@ -118,7 +125,23 @@ void saveInfo()
 	}
 }
 
+void saveToMap()
+{
+	for (int i = 0; i < list1.size(); i++)
+	{
+		idToName[list1[i].id] = list1[i].name;
+		nameToId[list1[i].name] = list1[i].id;
+		idToSpecialties[list1[i].id] = list1[i].specialties;
+		for (int j = 0; j < list1[i].specialties.size(); j++)
+			specialtiesToId[list1[i].specialties[j]].push_back(list1[i].id);
+		idToUniversity[list1[i].id] = list1[i].universityLocation;
+		idToField[list1[i].id] = list1[i].field;
+		idToWorkplace[list1[i].id] = list1[i].workplace;
+	}
+}
+
 int main()
 {
 	saveInfo();
+	saveToMap();
 }
